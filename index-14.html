@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MK Révision – ton professeur IA (Groq)</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f4f1e8;--card:#fff;--tx:#18271f;--mu:#68736c;--pr:#00853f;--pr2:#e6f4ec;--yl:#fdef42;--rd:#e31b23;--bd:#e5e0d2;--sh:0 6px 20px rgba(0,60,30,.08);--hero:linear-gradient(135deg,#006b32,#00a350 60%,#0b8f4a);--r:18px;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1712;--card:#18231c;--tx:#eef3ef;--mu:#9bab9f;--pr:#3fc47a;--pr2:#1b3225;--bd:#2a3a30;--sh:0 6px 20px rgba(0,0,0,.35);--hero:linear-gradient(135deg,#0a3d20,#0d6a38 70%,#117a42)}}
+:root[data-theme="dark"]{--bg:#0f1712;--card:#18231c;--tx:#eef3ef;--mu:#9bab9f;--pr:#3fc47a;--pr2:#1b3225;--bd:#2a3a30;--sh:0 6px 20px rgba(0,0,0,.35);--hero:linear-gradient(135deg,#0a3d20,#0d6a38 70%,#117a42)}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+h1,h2,h3,.ph{font-family:Poppins,system-ui,sans-serif}
+.flag{height:5px;background:linear-gradient(90deg,#00853f 33.3%,#fdef42 33.3% 66.6%,#e31b23 66.6%)}
+.wrap{max-width:760px;margin:0 auto;padding:12px 14px 100px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 0}
+.brand{display:flex;align-items:center;gap:9px;font-family:Poppins,sans-serif;font-weight:800;font-size:1.1rem}
+.logo{width:36px;height:36px;border-radius:11px;background:var(--hero);color:#fff;display:grid;place-items:center;font-size:.85rem;box-shadow:var(--sh);position:relative}
+.logo:after{content:"★";position:absolute;top:-6px;right:-5px;color:#fdef42;font-size:.8rem;text-shadow:0 0 2px #006b32}
+.pill{background:var(--pr2);color:var(--pr);border:1px solid var(--bd);border-radius:99px;padding:6px 13px;font-weight:700;font-size:.82rem;cursor:pointer;font-family:inherit}
+.hero{background:var(--hero);color:#fff;border-radius:24px;padding:22px 20px;margin-top:8px;position:relative;overflow:hidden;box-shadow:var(--sh)}
+.hero:before{content:"";position:absolute;right:-40px;top:-40px;width:170px;height:170px;border-radius:50%;background:rgba(253,239,66,.22)}
+.hero:after{content:"";position:absolute;right:30px;bottom:-60px;width:150px;height:150px;border-radius:50%;background:rgba(227,27,35,.25)}
+.hero>*{position:relative;z-index:1}.hero h1{margin:0 0 4px;font-size:1.55rem;line-height:1.2}.hero p{margin:0;opacity:.92}
+.tag{display:inline-block;background:var(--yl);color:#3a3300;font-weight:800;font-size:.72rem;border-radius:99px;padding:3px 11px;margin-bottom:8px;font-family:Poppins,sans-serif}
+.sec{font-family:Poppins,sans-serif;font-weight:700;font-size:1.02rem;margin:22px 2px 8px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.cls{background:var(--card);border:2px solid transparent;border-radius:var(--r);padding:16px 10px;font-weight:800;font-size:1.15rem;color:var(--tx);cursor:pointer;text-align:center;box-shadow:var(--sh);font-family:Poppins,sans-serif;transition:transform .12s}
+.cls span{display:block;font-size:1.7rem;margin-bottom:2px}.cls small{display:block;font-weight:500;font-size:.72rem;color:var(--mu);font-family:system-ui,sans-serif;margin-top:2px}
+.cls:hover,.cls:active{border-color:var(--pr);transform:translateY(-2px)}
+.act{background:var(--card);border-radius:var(--r);padding:14px 12px;box-shadow:var(--sh);border:1px solid var(--bd);cursor:pointer;text-align:left;color:var(--tx);font:inherit}
+.act b{display:block;font-family:Poppins,sans-serif;font-size:.92rem;margin-top:4px}.act small{color:var(--mu);font-size:.76rem;line-height:1.3;display:block}.act .ic{font-size:1.6rem}
+.tile{border-radius:16px;padding:12px 6px;text-align:center;font-size:.76rem;font-weight:700;cursor:pointer;border:1px solid var(--bd);background:var(--card);color:var(--tx);box-shadow:var(--sh);font-family:inherit}
+.tile span{display:block;font-size:1.6rem;margin-bottom:3px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:16px;margin-top:12px;box-shadow:var(--sh)}
+.card h3{margin:0 0 4px;font-size:1.05rem}.mu{color:var(--mu);font-size:.88rem}
+label{font-size:.78rem;font-weight:700;color:var(--mu);display:block;margin-top:12px;text-transform:uppercase;letter-spacing:.04em}
+select,input,textarea{width:100%;font:inherit;color:var(--tx);background:var(--bg);border:1.5px solid var(--bd);border-radius:12px;padding:11px 12px;margin-top:5px}
+select:focus,input:focus,textarea:focus{outline:none;border-color:var(--pr)}
+.btn{background:var(--hero);color:#fff;border:0;border-radius:13px;padding:13px 16px;font:700 1rem Poppins,sans-serif;cursor:pointer;margin-top:14px;width:100%;box-shadow:var(--sh)}
+.btn:disabled{opacity:.55}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+.chip{background:var(--pr2);color:var(--pr);border:1px solid var(--bd);border-radius:99px;padding:7px 13px;font-size:.82rem;font-weight:600;cursor:pointer;font-family:inherit}
+.chip.on{background:var(--pr);color:#fff}
+.msg{padding:11px 14px;border-radius:18px;margin-top:10px;max-width:94%;overflow-wrap:anywhere}
+.u{background:var(--hero);color:#fff;margin-left:auto;border-bottom-right-radius:5px;white-space:pre-wrap}
+.a{background:var(--card);border:1px solid var(--bd);border-bottom-left-radius:5px;box-shadow:var(--sh)}
+.out h3{margin:1em 0 .3em;color:var(--pr);font-size:1.05rem;border-left:4px solid var(--yl);padding-left:9px}
+.out p{margin:.45em 0}.out ul,.out ol{padding-left:1.3em;margin:.3em 0}.out li{margin:.2em 0}.out{overflow-x:auto}
+.out .box{background:var(--pr2);border-radius:12px;padding:8px 12px;margin:8px 0}
+.err{color:var(--rd);font-size:.88rem;margin-top:8px;font-weight:600}
+.chatbar{display:flex;gap:8px;margin-top:12px;align-items:flex-end}.chatbar textarea{margin:0;resize:none}.chatbar .btn{width:auto;margin:0;padding:12px 18px}
+.nav{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--bd);display:flex;padding:5px 2px calc(5px + env(safe-area-inset-bottom,0px));z-index:5;box-shadow:0 -4px 16px rgba(0,0,0,.06)}
+.nav button{flex:1;background:none;border:0;color:var(--mu);font:600 .64rem system-ui;padding:5px 0;cursor:pointer;border-radius:12px}
+.nav button span{display:block;font-size:1.25rem}.nav button.on{color:var(--pr);background:var(--pr2)}
+.info{display:flex;gap:10px;align-items:flex-start;font-size:.86rem}.info .ic{font-size:1.5rem}
+a{color:var(--pr);font-weight:600}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:90px;background:var(--pr);color:#fff;padding:9px 18px;border-radius:99px;font-weight:700;font-size:.85rem;z-index:9;opacity:0;transition:opacity .2s;pointer-events:none}.toast.on{opacity:1}.row{display:flex;gap:8px;align-items:center}.row input{margin-top:5px}.danger{background:#fde8e8;color:#b3261e}
+</style></head><body>
+<div class="flag"></div>
+<div class="wrap" id="app"></div>
+<script>
+const CL=[["6e","📗","Collège","6e"],["5e","📘","Collège","5e"],["4e","📙","Collège","4e"],["3e","🎓","Prépare le BFEM","3e"],["2nde","📕","Lycée","2nde"],["1ère","📓","Lycée","1ère"],["Terminale L","🏛️","Prépare le BAC","Tle L"],["Terminale S","🔬","Prépare le BAC","Tle S"]];
+const M={"Mathématiques":["➗","Maths"],"Physique-Chimie":["⚗️","Phys-Chimie"],"SVT":["🌱","SVT"],"Français":["📖","Français"],"Histoire-Géographie":["🌍","Hist-Géo"],"Anglais":["🇬🇧","Anglais"],"Espagnol":["🇪🇸","Espagnol"],"Philosophie":["🧠","Philo"],"ECM":["🤝","ECM"]};
+const COL=["Mathématiques","Physique-Chimie","SVT","Français","Histoire-Géographie","Anglais","ECM"];
+const SUBJ={"6e":COL,"5e":COL,"4e":COL.concat("Espagnol"),"3e":COL.concat("Espagnol"),
+"2nde":["Mathématiques","Physique-Chimie","SVT","Français","Histoire-Géographie","Anglais","Espagnol"],
+"1ère":["Mathématiques","Physique-Chimie","SVT","Français","Histoire-Géographie","Anglais","Espagnol"],
+"Terminale L":["Philosophie","Français","Histoire-Géographie","Anglais","Mathématiques","Espagnol","SVT"],
+"Terminale S":["Mathématiques","Physique-Chimie","SVT","Philosophie","Français","Histoire-Géographie","Anglais"]};
+const SERIES={"Terminale L":["L1","L2"],"Terminale S":["S1","S2"]};
+const FRC=["Grammaire","Conjugaison","Orthographe & dictée","Vocabulaire","Lecture & étude de texte","Expression écrite (rédaction)","Œuvres au programme"];
+const FRL=["Étude de texte / lecture méthodique","Commentaire composé","Dissertation littéraire","Contraction de texte & discussion","Grammaire & langue","Œuvres au programme","Histoire littéraire & mouvements"];
+const TABS=[["home","🏠","Accueil"],["prof","💬","Prof IA"],["cours","📘","Cours"],["exos","✏️","Exercices"],["quiz","🎯","Quiz"],["exam","📝","Examens"]];
+const TIPS=["Révise 25 minutes, pause 5 minutes : ton cerveau retient mieux ainsi.","Refais les exercices corrigés SANS regarder le corrigé, puis compare.","Avant un devoir, relis tes erreurs passées : ce sont tes meilleures leçons.","Explique ta leçon à voix haute comme si tu étais le professeur.","Dors bien la veille d'un examen : mieux vaut 8 h de sommeil qu'une nuit blanche.","En maths, écris toujours la formule avant de calculer."];
+/* ====== CONFIGURATION GROQ ======
+ ⚠️ Ne mets PAS ta clé ici si ton dépôt GitHub est public : tout le monde pourrait la voir et l'utiliser.
+ Laisse vide : chaque utilisateur colle sa clé dans ⚙️ Paramètres (stockée dans son navigateur). */
+const GROQ_API_KEY="";
+const GROQ_MODEL="llama-3.3-70b-versatile";
+const GROQ_URL="https://api.groq.com/openai/v1/chat/completions";
+let S={cls:null,serie:null,tab:"home",subj:{},dom:{},chat:[],busy:false,last:null,name:"",key:"",mem:[],set:{theme:"auto",size:"16",style:"equilibre",model:GROQ_MODEL,memOn:true}};
+try{S.cls=localStorage.getItem("mk_cls");S.serie=localStorage.getItem("mk_serie");S.name=localStorage.getItem("mk_name")||"";S.key=localStorage.getItem("mk_key")||"";S.mem=JSON.parse(localStorage.getItem("mk_mem")||"[]")}catch(e){}
+try{Object.assign(S.set,JSON.parse(localStorage.getItem("mk_set")||"{}"))}catch(e){}
+if(S.cls&&!SUBJ[S.cls])S.cls=null;
+const $=id=>document.getElementById(id);
+const esc=s=>s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const isExam=()=>S.cls==="3e"||S.cls.startsWith("Term");
+const examName=()=>S.cls==="3e"?"BFEM":S.cls.startsWith("Term")?"BAC":"";
+const base=n=>n.replace(/ \(.*/,"");
+function md(t){let o="",ul=false;
+ for(let l of esc(t).split("\n")){let b=l.replace(/\*\*(.+?)\*\*/g,"<b>$1</b>").replace(/(^|[^*])\*([^*\s][^*]*?)\*/g,"$1<i>$2</i>"),m;
+  if(m=b.match(/^\s*(?:[-•*]|\d+[.)])\s+(.*)/)){if(!ul){o+="<ul>";ul=true}o+="<li>"+m[1]+"</li>";continue}
+  if(ul){o+="</ul>";ul=false}
+  if(m=b.match(/^#{1,4}\s+(.*)/))o+="<h3>"+m[1]+"</h3>";else if(/^[-—_]{3,}$/.test(b.trim()))o+="<hr>";else if(b.trim())o+="<p>"+b+"</p>"}
+ return o+(ul?"</ul>":"")}
+const ctx=()=>`${S.cls}${S.serie&&SERIES[S.cls]?" (série "+S.serie+")":""}`;
+const SYS=()=>`Tu es « MK Révision », un professeur sénégalais bienveillant, rigoureux et très pédagogue. Tu enseignes strictement selon les programmes officiels du Sénégal : cycle moyen (6e à 3e, 4 ans, examen du BFEM) et cycle secondaire général (2nde, 1ère, Terminale ; séries L1, L2, S1, S2 ; examen du Baccalauréat organisé par l'Office du Baccalauréat). L'élève ${S.name?"s'appelle "+S.name+" et ":""}est en classe de ${ctx()}. Appelle-le par son prénom de temps en temps pour l'encourager.${styStr()}${memStr()} Adapte le niveau, le vocabulaire et la difficulté à cette classe, et reste dans le cadre du programme de cette classe. Explique pas à pas, avec des exemples concrets du quotidien sénégalais (Dakar, marché, FCFA, baobab, Casamance, wolof, etc.) quand c'est pertinent. Écris les formules en texte lisible (x², √3, a/b, ∑). Structure avec des titres courts (##) et des listes. Pour le français, respecte les méthodes attendues au Sénégal (étude de texte, contraction de texte, discussion, dissertation, commentaire composé en lycée ; rédaction, dictée, questions de grammaire et de vocabulaire en collège). Termine souvent par une courte question ou un mini-exercice pour vérifier la compréhension. Si tu n'es pas certain qu'un point figure au programme officiel, dis-le franchement et invite l'élève à vérifier avec son enseignant ou le site officedubac.sn. N'invente jamais de références ou de sujets officiels : les sujets proposés sont des sujets d'entraînement.`;
+async function ask(input,onText){
+ const key=GROQ_API_KEY||S.key;if(!key)throw{message:"Clé Groq manquante : ouvre ⚙️ Paramètres (en haut à droite) pour l'ajouter."};
+ const messages=typeof input==="string"?[{role:"user",content:input}]:input;let res;
+ try{res=await fetch(GROQ_URL,{method:"POST",headers:{"Content-Type":"application/json",Authorization:"Bearer "+key},body:JSON.stringify({model:S.set.model||GROQ_MODEL,messages,stream:true,temperature:.5,max_tokens:4096})})}
+ catch(e){throw{message:"Pas de connexion internet."}}
+ if(!res.ok){throw{message:res.status===401?"Clé Groq invalide.":res.status===429?"Trop de demandes, attends quelques secondes.":"Erreur Groq ("+res.status+")."}}
+ const rd=res.body.getReader(),dec=new TextDecoder();let buf="",text="";
+ for(;;){const{done,value}=await rd.read();if(done)break;buf+=dec.decode(value,{stream:true});let n;
+  while((n=buf.indexOf("\n"))>=0){const l=buf.slice(0,n).trim();buf=buf.slice(n+1);if(!l.startsWith("data:"))continue;const d=l.slice(5).trim();if(d==="[DONE]")continue;
+   try{const t=JSON.parse(d).choices[0].delta.content;if(t){text+=t;if(onText)onText({text})}}catch(e){}}}
+ return{text}}
+function remember(x){if(!S.set.memOn)return;S.mem=S.mem.filter(y=>y!==x).concat(x).slice(-8);try{localStorage.setItem("mk_mem",JSON.stringify(S.mem))}catch(e){}}
+const memStr=()=>S.set.memOn&&S.mem.length?` Mémoire — dernières leçons travaillées par l'élève : ${S.mem.join(" ; ")}.`:"";
+const styStr=()=>({simple:" Style demandé : explications très simples, courtes, avec peu de jargon.",detaille:" Style demandé : explications très détaillées et approfondies, avec davantage d'exemples et de justifications."}[S.set.style]||"");
+function applyPrefs(){const r=document.documentElement;S.set.theme==="auto"?r.removeAttribute("data-theme"):r.setAttribute("data-theme",S.set.theme);document.body.style.fontSize=S.set.size+"px"}
+function persist(){try{localStorage.setItem("mk_set",JSON.stringify(S.set));S.cls?localStorage.setItem("mk_cls",S.cls):localStorage.removeItem("mk_cls");S.serie?localStorage.setItem("mk_serie",S.serie):localStorage.removeItem("mk_serie");localStorage.setItem("mk_name",S.name);localStorage.setItem("mk_key",S.key)}catch(e){}}
+function toast(m){let t=$("toast");if(!t){t=document.createElement("div");t.id="toast";t.className="toast";document.body.appendChild(t)}t.textContent=m;t.classList.add("on");clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove("on"),1700)}
+const opt=(id,arr,cur)=>`<select id="${id}">${arr.map(([v,l])=>`<option value="${v}" ${v==cur?"selected":""}>${l}</option>`).join("")}</select>`;
+function settingsPage(){const hk=!!(GROQ_API_KEY||S.key);
+ return `<div class="sec" style="margin-top:12px;font-size:1.3rem">⚙️ Paramètres</div>
+ <div class="card"><h3>🔑 Connexion à l'IA</h3><div class="mu" id="kstat">${hk?"✅ Clé enregistrée":"❌ Aucune clé enregistrée"}</div>
+ ${GROQ_API_KEY?`<div class="mu">Une clé est intégrée à l'application.</div>`:`<label>Clé API Groq</label><div class="row"><input id="setkey" type="password" placeholder="Colle ta clé ici" value="${esc(S.key)}" autocomplete="off" spellcheck="false"><button class="pill" id="eye">👁️</button></div>`}
+ <label>Modèle</label>${opt("setmodel",[["llama-3.3-70b-versatile","Llama 3.3 70B · le plus précis"],["llama-3.1-8b-instant","Llama 3.1 8B · ultra rapide"],["meta-llama/llama-4-scout-17b-16e-instruct","Llama 4 Scout 17B"]],S.set.model)}
+ <div class="chips"><button class="chip" id="test">🧪 Tester la connexion</button>${!GROQ_API_KEY&&S.key?`<button class="chip" id="delkey">🗑️ Supprimer la clé</button>`:""}</div><div id="testmsg" class="mu" style="margin-top:8px"></div></div>
+ <div class="card"><h3>👤 Profil</h3><label>Prénom</label><input id="setname" value="${esc(S.name)}" maxlength="30"><label>Classe</label>${opt("setcls",CL.map(c=>[c[0],c[0]+" · "+c[2]]),S.cls)}${SERIES[S.cls]?`<label>Série</label>${opt("setserie",SERIES[S.cls].map(x=>[x,x]),S.serie)}`:""}</div>
+ <div class="card"><h3>🧑‍🏫 Style du prof</h3><div class="mu">Choisis comment le prof t'explique les leçons.</div><label>Type d'explication</label>${opt("setstyle",[["simple","Simple et court"],["equilibre","Équilibré (recommandé)"],["detaille","Détaillé et approfondi"]],S.set.style)}</div>
+ <div class="card"><h3>🎨 Apparence</h3><label>Thème</label>${opt("settheme",[["auto","Automatique"],["light","Clair"],["dark","Sombre"]],S.set.theme)}<label>Taille du texte</label>${opt("setsize",[["14","Petit"],["16","Normal"],["18","Grand"],["20","Très grand"]],S.set.size)}</div>
+ <div class="card"><h3>🧠 Mémoire du prof</h3><div class="mu">Le prof retient ton prénom et tes dernières leçons pour mieux t'aider.</div><label>Mémoire des leçons</label>${opt("setmem",[["on","Activée"],["off","Désactivée"]],S.set.memOn?"on":"off")}
+ ${S.mem.length?`<label>Dernières leçons retenues</label><div class="mu">${S.mem.map(esc).join("<br>")}</div><button class="chip" id="clrmem" style="margin-top:10px">🗑️ Effacer la mémoire</button>`:`<div class="mu" style="margin-top:8px">Rien de retenu pour l'instant.</div>`}</div>
+ <div class="card"><h3>💾 Mes données</h3><div class="mu">Tout est stocké uniquement sur cet appareil.</div><div class="chips"><button class="chip" id="exp">📥 Exporter mes données</button><button class="chip danger" id="rst">⚠️ Tout réinitialiser</button></div></div>
+ <div class="mu" style="text-align:center;margin-top:16px">MK Révision · Programme sénégalais · Propulsé par MOUHAMED RASSOUL KANE</div>`}
+function changeCls(c){S.cls=c;S.serie=SERIES[c]?SERIES[c][0]:null;S.chat=[];S.subj={};S.last=null;persist()}
+function bindSettings(){const on=(id,fn)=>{const e=$(id);if(e)e.onclick=fn},ch=(id,fn)=>{const e=$(id);if(e)e.onchange=fn};
+ on("eye",()=>{const k=$("setkey");k.type=k.type==="password"?"text":"password"});
+ ch("setkey",()=>{S.key=$("setkey").value.trim();persist();$("kstat").textContent=S.key?"✅ Clé enregistrée":"❌ Aucune clé enregistrée";toast("✅ Clé enregistrée")});
+ ch("setmodel",()=>{S.set.model=$("setmodel").value;persist();toast("✅ Modèle changé")});
+ on("test",async()=>{const m=$("testmsg");m.textContent="⏳ Test en cours…";try{await ask("Réponds uniquement par le mot : OK");m.textContent="✅ Connexion réussie ("+(S.set.model||GROQ_MODEL)+")"}catch(e){m.textContent="❌ "+(e.message||"Échec de la connexion")}});
+ on("delkey",()=>{S.key="";persist();render();toast("Clé supprimée")});
+ ch("setname",()=>{const v=$("setname").value.trim();if(v){S.name=v;persist();toast("✅ Prénom enregistré")}});
+ ch("setcls",()=>{changeCls($("setcls").value);render();toast("✅ Classe changée")});
+ ch("setserie",()=>{S.serie=$("setserie").value;persist();toast("✅ Série enregistrée")});
+ ch("setstyle",()=>{S.set.style=$("setstyle").value;persist();toast("✅ Style enregistré")});
+ ch("settheme",()=>{S.set.theme=$("settheme").value;persist();applyPrefs();toast("✅ Thème appliqué")});
+ ch("setsize",()=>{S.set.size=$("setsize").value;persist();applyPrefs();toast("✅ Taille appliquée")});
+ ch("setmem",()=>{S.set.memOn=$("setmem").value==="on";persist();toast(S.set.memOn?"🧠 Mémoire activée":"Mémoire désactivée")});
+ on("clrmem",()=>{S.mem=[];try{localStorage.removeItem("mk_mem")}catch(e){}render();toast("Mémoire effacée")});
+ on("exp",()=>{const d={prenom:S.name,classe:S.cls,serie:S.serie,memoire:S.mem,parametres:S.set};const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(d,null,2)],{type:"application/json"}));a.download="mk-revision-donnees.json";document.body.appendChild(a);a.click();a.remove();toast("📥 Données exportées")});
+ on("rst",()=>{if(!confirm("Tout effacer (prénom, classe, clé, mémoire, réglages) ?"))return;["mk_cls","mk_serie","mk_name","mk_key","mk_mem","mk_set"].forEach(k=>{try{localStorage.removeItem(k)}catch(e){}});
+  S.cls=null;S.serie=null;S.name="";S.key="";S.mem=[];S.chat=[];S.subj={};S.last=null;S.tab="home";S.set={theme:"auto",size:"16",style:"equilibre",model:GROQ_MODEL,memOn:true};applyPrefs();render()})}
+const sel=(id,arr,cur)=>`<select id="${id}">${arr.map(s=>`<option ${s==cur?"selected":""}>${s}</option>`).join("")}</select>`;
+function fields(){const subs=SUBJ[S.cls],cur=S.subj.cur&&subs.includes(S.subj.cur)?S.subj.cur:subs[0];
+ let h=`<label>Matière</label>${sel("sub",subs,cur)}`;
+ if(cur==="Français"){const d=S.cls.match(/^(2nde|1ère|Term)/)?FRL:FRC;h+=`<label>Domaine de français</label>${sel("dom",d,S.dom[S.cls])}`}return h}
+function getSel(){const sub=$("sub").value;S.subj.cur=sub;let d="";if(sub==="Français"&&$("dom")){d=$("dom").value;S.dom[S.cls]=d}return{sub,d}}
+const subjStr=(s,d)=>s+(d?` (domaine : ${d})`:"");
+function bind(){const s=$("sub");if(s)s.onchange=()=>{S.subj.cur=s.value;const y=window.scrollY;render();window.scrollTo(0,y)}}
+function render(){const a=$("app");
+ if(!S.name){a.innerHTML=`<div class="hero"><span class="tag">🇸🇳 PROGRAMME SÉNÉGALAIS</span><h1>MK Révision</h1><p>Ton professeur IA personnel : cours, exercices, quiz et préparation au BFEM et au BAC.</p></div><div class="card"><h3>👋 Salut ! Comment tu t'appelles ?</h3><div class="mu">Ton prof retiendra ton prénom et tes dernières leçons sur cet appareil.</div><input id="nm" placeholder="Ton prénom" maxlength="30" autocomplete="given-name"><button class="btn" id="nmgo">Continuer</button></div>`;
+  const go=()=>{const v=$("nm").value.trim();if(!v)return;S.name=v;try{localStorage.setItem("mk_name",v)}catch(e){}render()};$("nmgo").onclick=go;$("nm").onkeydown=e=>{if(e.key==="Enter")go()};return}
+ if(!S.cls){a.innerHTML=`<div class="hero"><span class="tag">🇸🇳 PROGRAMME SÉNÉGALAIS</span><h1>MK Révision</h1><p>Ton professeur IA personnel : cours, exercices, quiz et préparation au BFEM et au BAC.</p></div>
+ <div class="sec">${esc(S.name)}, en quelle classe es-tu ?</div><div class="grid2">${CL.map(c=>`<button class="cls" data-c="${c[0]}"><span>${c[1]}</span>${c[3]}<small>${c[2]}</small></button>`).join("")}</div>`;
+  a.querySelectorAll(".cls").forEach(b=>b.onclick=()=>{S.cls=b.dataset.c;S.serie=SERIES[S.cls]?SERIES[S.cls][0]:null;S.tab="home";S.chat=[];S.subj={};try{localStorage.setItem("mk_cls",S.cls);S.serie?localStorage.setItem("mk_serie",S.serie):localStorage.removeItem("mk_serie")}catch(e){}render()});return}
+ if(SERIES[S.cls]&&!SERIES[S.cls].includes(S.serie))S.serie=SERIES[S.cls][0];
+ const subs=SUBJ[S.cls];let body="";
+ const head=`<div class="top"><div class="brand"><div class="logo">MK</div>MK Révision</div><div class="row"><button class="pill" id="gear" aria-label="Paramètres">⚙️</button><button class="pill" id="chg">${S.cls}${S.serie?" · "+S.serie:""} ⟲</button></div></div>`;
+ if(S.tab==="home"){const ex=examName();
+  body=`<div class="hero"><span class="tag">${ex?"🎯 PRÉPARATION AU "+ex:"📚 CLASSE DE "+S.cls.toUpperCase()}</span><h1>Bonjour ${esc(S.name)} 👋</h1><p>${ex?"Ton objectif : réussir le "+ex+". On révise ensemble, matière par matière.":"Comprends tes cours, entraîne-toi et progresse à ton rythme."}</p></div>
+  ${SERIES[S.cls]?`<div class="sec">Ta série</div><div class="chips" style="margin-top:0">${SERIES[S.cls].map(x=>`<button class="chip ${x===S.serie?"on":""}" data-s="${x}">${x}${x==="S1"?" · Maths-Physique":x==="S2"?" · Sciences expérimentales":x==="L1"?" · Lettres":" · Lettres-langues"}</button>`).join("")}</div>`:""}
+  ${(GROQ_API_KEY||S.key)?"":`<button class="act" data-g="settings" style="width:100%;margin-top:12px"><div class="ic">🔑</div><b>Ajoute ta clé pour activer le prof</b><small>Ouvre les paramètres</small></button>`}<div class="sec">Que veux-tu faire ?</div><div class="grid2">
+  <button class="act" data-g="prof"><div class="ic">💬</div><b>Poser une question</b><small>Le prof t'explique pas à pas</small></button>
+  <button class="act" data-g="cours"><div class="ic">📘</div><b>Cours & fiches</b><small>Résumés, méthodes, formulaires</small></button>
+  <button class="act" data-g="exos"><div class="ic">✏️</div><b>Séries d'exercices</b><small>Avec corrigés détaillés</small></button>
+  <button class="act" data-g="quiz"><div class="ic">🎯</div><b>Quiz éclair</b><small>Teste-toi en 8 questions</small></button>
+  <button class="act" data-g="exam"><div class="ic">📝</div><b>${ex?"Sujets "+ex+" & devoirs":"Devoirs types"}</b><small>Notés sur 20 + plan de révision</small></button>
+  <button class="act" data-g="prof" data-p="Comment bien réviser mes cours ?"><div class="ic">💡</div><b>Méthode de travail</b><small>Organise tes révisions</small></button></div>
+  <div class="sec">Tes matières</div><div class="grid3">${subs.map((s,i)=>`<button class="tile" data-i="${i}"><span>${(M[s]||["📚"])[0]}</span>${(M[s]||["","",s])[1]||s}</button>`).join("")}</div>
+  <div class="card"><div class="info"><div class="ic">💡</div><div><b class="ph">Conseil du jour</b><br>${TIPS[new Date().getDate()%TIPS.length]}</div></div></div>
+  <div class="card"><div class="info"><div class="ic">🏫</div><div><b class="ph">À propos du programme</b><br>Le cycle moyen dure 4 ans (6e–3e) et mène au BFEM. Le secondaire général dure 3 ans (séries L1, L2, S1, S2) et mène au BAC. Les programmes officiels de Terminale sont publiés par l'<a href="https://officedubac.sn" target="_blank" rel="noopener">Office du Baccalauréat</a>. Vérifie toujours avec ton enseignant.</div></div></div>`}
+ else if(S.tab==="settings"){body=settingsPage()}
+ else if(S.tab==="prof"){const cur=S.subj.cur&&subs.includes(S.subj.cur)?S.subj.cur:subs[0];
+  body=`<div class="card"><h3>💬 Ton prof IA</h3><div class="mu">Pose une question sur n'importe quelle leçon de ${S.cls}.</div>${fields()}
+  <div class="chips">${["Explique-moi la leçon sur","Aide-moi à résoudre cet exercice :","Corrige ma réponse :","Donne-moi un exemple de","Résume en 5 points :"].map(c=>`<button class="chip" data-q="${c}">${c}</button>`).join("")}</div></div>
+  <div id="log">${S.chat.length?"":`<div class="msg a out">Bonjour ${esc(S.name)} ! 👋 Je suis ton prof de <b>${cur}</b> en ${S.cls}. Dis-moi le titre de ta leçon ou colle ton exercice, et on le fait ensemble.</div>`}${S.chat.map(m=>`<div class="msg ${m.role==="user"?"u":"a out"}">${m.role==="user"?esc(m.content):md(m.content)}</div>`).join("")}</div>
+  <div class="chatbar"><textarea id="q" rows="2" placeholder="Écris ta question ici…"></textarea><button class="btn" id="send">Envoyer</button></div><div id="err" class="err"></div>${S.chat.length?`<div style="text-align:center;margin-top:12px"><button class="chip" id="clr">🗑️ Nouvelle conversation</button></div>`:""}`}
+ else{const ex=examName();
+  const C={cours:["📘","Cours & fiches","Génère",["Résumé de cours","Fiche méthode","Formulaire / lexique à retenir","Erreurs fréquentes & pièges","Explication pour débutant"]],
+   exos:["✏️","Séries d'exercices","Génère la série",null],quiz:["🎯","Quiz","Lance le quiz",null],
+   exam:["📝",ex?"Sujets "+ex+" & devoirs":"Devoirs types","Génère",[ex?"Sujet complet type "+ex:"Devoir de classe type","Devoir de contrôle (1 h)","Plan de révision personnalisé"]]}[S.tab];
+  body=`<div class="card"><h3>${C[0]} ${C[1]} · ${S.cls}</h3><div class="mu">Choisis ta matière et ton chapitre, le prof prépare tout.</div>${fields()}
+  ${C[3]?`<label>Type</label>${sel("kind",C[3],S.subj["k"+S.tab])}`:""}
+  <label>Chapitre / leçon</label><input id="top" placeholder="ex : Théorème de Pythagore, Le roman, La photosynthèse…" value="${esc(S.subj["t"+S.tab]||"")}">
+  ${S.tab==="exos"?`<label>Difficulté</label>${sel("lvl",["Facile","Moyen","Difficile","Niveau examen"],"Moyen")}<label>Nombre d'exercices</label>${sel("nb",["4","6","8","10"],"6")}`:""}
+  ${S.tab==="quiz"?`<label>Nombre de questions</label>${sel("nb",["5","8","12","15"],"8")}`:""}
+  <button class="btn" id="go">${C[2]}</button><div id="err" class="err"></div></div><div class="card out" id="res" style="display:none"></div><div class="chips" id="fu" style="display:none"></div>`}
+ a.innerHTML=head+body+`<div class="nav">${TABS.map(t=>`<button class="${t[0]===S.tab?"on":""}" data-t="${t[0]}"><span>${t[1]}</span>${t[2]}</button>`).join("")}</div>`;
+ a.querySelectorAll(".nav button").forEach(b=>b.onclick=()=>{S.tab=b.dataset.t;S.last=null;render();window.scrollTo(0,0)});
+ $("gear").onclick=()=>{S.tab="settings";render();window.scrollTo(0,0)};
+ $("chg").onclick=()=>{S.cls=null;S.chat=[];try{localStorage.removeItem("mk_cls")}catch(e){}render()};
+ bind();
+ if(S.tab==="home"){a.querySelectorAll("[data-g]").forEach(b=>b.onclick=()=>{S.tab=b.dataset.g;S.pre=b.dataset.p||"";render();if(S.pre){$("q").value=S.pre}window.scrollTo(0,0)});
+  a.querySelectorAll(".tile").forEach(b=>b.onclick=()=>{S.subj.cur=SUBJ[S.cls][+b.dataset.i];S.tab="prof";render();window.scrollTo(0,0)});
+  a.querySelectorAll("[data-s]").forEach(b=>b.onclick=()=>{S.serie=b.dataset.s;try{localStorage.setItem("mk_serie",S.serie)}catch(e){}render()})}
+ else if(S.tab==="settings")bindSettings();
+ else if(S.tab==="prof"){a.querySelectorAll("[data-q]").forEach(c=>c.onclick=()=>{$("q").value=c.dataset.q+" ";$("q").focus()});$("send").onclick=sendChat;
+  const c=$("clr");if(c)c.onclick=()=>{S.chat=[];render()};if(S.chat.length)window.scrollTo(0,document.body.scrollHeight)}
+ else $("go").onclick=generate}
+async function sendChat(){const q=$("q").value.trim();if(!q||S.busy)return;const{sub,d}=getSel();S.busy=true;$("send").disabled=true;$("err").textContent="";
+ S.chat.push({role:"user",content:q});S.chat.push({role:"assistant",content:"…"});render();
+ let h=S.chat.slice(0,-1).slice(-12).map(m=>({role:m.role,content:m.content}));while(h.length&&h[0].role!=="user")h.shift();
+ h[0]={role:"user",content:SYS()+`\nMatière actuelle : ${subjStr(sub,d)}.\n\n`+h[0].content};
+ try{const r=await ask(h,({text})=>{S.chat[S.chat.length-1].content=text;const l=document.querySelectorAll("#log .msg");l[l.length-1].innerHTML=md(text)});S.chat[S.chat.length-1].content=r.text;remember(sub+" : "+q.slice(0,60))}
+ catch(e){S.chat.pop();S.chat.pop();render();$("err").textContent=e.message||"Une erreur est survenue, réessaie.";S.busy=false;return}
+ S.busy=false;render()}
+function buildPrompt(sub,d,top,k){const ex=examName(),m=subjStr(sub,d),t=`« ${top} »`;const grid=ex?"":" ";
+ if(S.tab==="cours"){return{
+  "Résumé de cours":`Rédige un résumé de cours complet et structuré sur ${t} en ${m}, niveau ${ctx()}. Inclure : 1) l'essentiel à retenir, 2) définitions et formules/règles clés, 3) un exemple résolu étape par étape, 4) trois erreurs fréquentes à éviter, 5) un mini-exercice d'auto-vérification avec réponse.`,
+  "Fiche méthode":`Rédige une fiche méthode pratique pour réussir ${t} en ${m} (${ctx()}) : étapes à suivre numérotées, pièges à éviter, modèle rédigé ou exemple traité, et astuces pour le gagner des points en devoir${ex?" et au "+ex:""}.`,
+  "Formulaire / lexique à retenir":`Dresse le formulaire / lexique / dates / règles à connaître par cœur sur ${t} en ${m} (${ctx()}), sous forme de liste claire avec une courte explication de chaque élément.`,
+  "Erreurs fréquentes & pièges":`Liste les erreurs et pièges les plus fréquents des élèves sur ${t} en ${m} (${ctx()}), avec pour chacun : l'erreur, pourquoi elle est fausse, la bonne méthode et un exemple.`,
+  "Explication pour débutant":`Explique ${t} en ${m} comme à un élève qui part de zéro (${ctx()}) : analogies simples tirées de la vie au Sénégal, progression douce, puis 3 questions pour vérifier la compréhension avec réponses.`}[k]}
+ if(S.tab==="exos")return`Crée une série de ${$("nb").value} exercices de difficulté « ${$("lvl").value} » sur ${t} en ${m} pour ${ctx()}, progressifs et dans le style des devoirs sénégalais. Donne les énoncés numérotés avec le barème, puis une section « Corrigé détaillé » complète à la fin.`;
+ if(S.tab==="quiz")return`Crée un quiz de ${$("nb").value} questions (mélange de QCM à 4 choix et questions courtes) sur ${t} en ${m} pour ${ctx()}. Donne d'abord toutes les questions numérotées, puis une section « Corrigé » avec une explication courte pour chaque réponse.`;
+ return{
+  [ex?"Sujet complet type "+ex:"Devoir de classe type"]:`Crée un sujet d'entraînement complet ${ex==="BFEM"?"dans le style de l'épreuve du BFEM":ex==="BAC"?"dans le style de l'épreuve du Baccalauréat sénégalais (série "+(S.serie||"")+")":"dans le style d'un devoir de classe sénégalais"} en ${m} sur ${t}, avec en-tête, durée, consignes, barème sur 20, puis un corrigé détaillé avec barème de notation. Précise que c'est un sujet d'entraînement, pas un sujet officiel.`,
+  "Devoir de contrôle (1 h)":`Crée un devoir de contrôle d'une heure, noté sur 20, en ${m} sur ${t} pour ${ctx()}, avec corrigé détaillé et barème.`,
+  "Plan de révision personnalisé":`Crée un plan de révision sur 4 semaines pour ${ex?"préparer le "+ex:"réviser"} en ${m} (${ctx()}) en partant de ${t}. Présente semaine par semaine : objectifs, chapitres clés du programme à revoir, exercices types, et conseils de méthode. Sois réaliste et motivant.`}[k]}
+async function generate(){const{sub,d}=getSel(),top=$("top").value.trim(),k=$("kind")?$("kind").value:"";S.subj["t"+S.tab]=top;if(k)S.subj["k"+S.tab]=k;
+ if(!top){$("err").textContent="Indique d'abord le chapitre ou la leçon.";return}
+ const P=SYS()+"\n\n"+buildPrompt(sub,d,top,k),r=$("res"),fu=$("fu");r.style.display="block";fu.style.display="none";r.innerHTML="<p class='mu'>⏳ Ton prof prépare ça…</p>";$("go").disabled=true;$("err").textContent="";
+ try{const x=await ask(P,({text})=>{r.innerHTML=md(text)});S.last={p:P,t:x.text};remember(sub+" : "+top);showFu()}catch(e){r.style.display="none";$("err").textContent=e.message||"Erreur, réessaie."}
+ $("go").disabled=false}
+function showFu(){const fu=$("fu");fu.style.display="flex";fu.innerHTML=["🔍 Plus simple","📚 Plus détaillé","➕ D'autres exemples","❓ Pose-moi des questions"].map(x=>`<button class="chip">${x}</button>`).join("");
+ fu.querySelectorAll(".chip").forEach(c=>c.onclick=async()=>{const r=$("res");const old=r.innerHTML;r.innerHTML+="<p class='mu'>⏳…</p>";
+  try{const x=await ask([{role:"user",content:S.last.p},{role:"assistant",content:S.last.t},{role:"user",content:c.textContent.replace(/^\S+\s/,"")+" — reprends le contenu précédent en conséquence."}],({text})=>{r.innerHTML=md(text)});S.last.t=x.text}catch(e){r.innerHTML=old}})}
+applyPrefs();render();
+</script></body></html>
